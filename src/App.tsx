@@ -2,6 +2,7 @@ import * as React from "react";
 import { Counter } from "./features/counter/Counter";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import "./App.css";
+import { beersService } from "./services/beers";
 export const App = () => {
   return (
     <Router>
