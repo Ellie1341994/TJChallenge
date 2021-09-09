@@ -28,6 +28,11 @@ export const App = () => {
           render={() => <Redirect to="beers_?page=1&per_page=12" />}
         />
         <Route exact path="/cart" render={() => "Cart page"} />
+        <Route
+          exact
+          path={["/login", "/register"]}
+          render={() => "A Login or Register form"}
+        />
         <Route exact path="/contact" render={() => "Contact page"} />
         <Route
           exact
