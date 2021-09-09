@@ -1,20 +1,40 @@
 import * as React from "react";
-import { Counter } from "./features/counter/Counter";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from "react-router-dom";
 import "./App.css";
 import { beersService } from "./services/beers";
+import { Beer as IBeer } from "./types/beer";
+import { BeerView } from "./pages/BeerView";
 export const App = () => {
+  const [test, setTest] = React.useState<IBeer[] | []>([]);
+  React.useEffect(() => {
+    //beersService.random().then((response) => setTest(response.data));
+  }, []);
+
   return (
     <Router>
       <Switch>
-        {/*Main page with filters and products*/}
-        <Route exact path="/" children={() => "hola"} />
-        {/*Shopping cart*/}
-        <Route exact path="/cart" children={() => "hola"} />
-        {/*Contact page*/}
-        <Route exact path="/contact" children={() => "hola"} />
-        {/*Product item page*/}
-        <Route exact path="/item/:id" children={() => "hola"} />
+        <Route
+          path="/beers_"
+          render={({ location, match }) => location.search}
+        />
+        <Route
+          exact
+          path="/"
+          render={() => <Redirect to="beers_?page=1&per_page=12" />}
+        />
+        <Route exact path="/cart" render={() => "Cart page"} />
+        <Route exact path="/contact" render={() => "Contact page"} />
+        <Route
+          exact
+          path="/beers/:id"
+          render={({ match }) => <BeerView BeerId={match.params.id} />}
+        />
+        <Route render={() => "Not found page"} />
       </Switch>
     </Router>
   );
