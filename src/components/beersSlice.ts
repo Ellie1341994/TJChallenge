@@ -9,10 +9,12 @@ export const getBeers = createAsyncThunk("beers/get", async () => {
 interface BeersState {
   data: undefined | IBeer[] | IBeer;
   status: undefined | "loading" | "success" | "failed";
+  history: number[] | string[] | undefined;
   message: string;
 }
 const initialState: BeersState = {
   data: undefined,
+  history: undefined,
   status: undefined,
   message: "",
 };
