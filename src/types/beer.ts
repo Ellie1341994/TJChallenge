@@ -3,27 +3,27 @@
 // In addition, I'm also assumming that all fields could be null based on a few manual tests
 */
 export interface Beer {
-  id: number | null;
+  id?: number | null;
   name: string | null;
-  tagline: string | null;
+  tagline?: string | null;
   firstBrewed: string | null;
   description: string | null;
-  imageURL: string | null | null;
-  abv: number | null;
-  ibu: number | null;
-  targetFg: number | null;
-  targetOg: number | null;
-  ebc: number | null;
-  srm: number | null;
-  ph: number | null;
-  attenuationLevel: number | null;
-  volume: BoilVolume | null;
-  boilVolume: BoilVolume | null;
-  method: Method | null;
-  ingredients: Ingredients | null;
-  foodPairing: string[] | null;
-  brewersTips: string | null;
-  contributedBy: string | null;
+  imageURL: string | null;
+  abv?: number | null;
+  ibu?: number | null;
+  targetFg?: number | null;
+  targetOg?: number | null;
+  ebc?: number | null;
+  srm?: number | null;
+  ph?: number | null;
+  attenuationLevel?: number | null;
+  volume?: BoilVolume | null;
+  boilVolume?: BoilVolume | null;
+  method?: Method | null;
+  ingredients?: Ingredients | null;
+  foodPairing?: string[] | null;
+  brewersTips?: string | null;
+  contributedBy?: string | null;
 }
 
 export interface BoilVolume {
