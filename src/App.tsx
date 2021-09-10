@@ -9,6 +9,7 @@ import "./App.css";
 import { beersService } from "./services/beers";
 import { Beer as IBeer } from "./types/beer";
 import { BeerView } from "./pages/BeerView";
+import { GroceryView } from "./pages/GroceryView";
 export const App = () => {
   const [test, setTest] = React.useState<IBeer[] | []>([]);
   React.useEffect(() => {
@@ -20,7 +21,9 @@ export const App = () => {
       <Switch>
         <Route
           path="/beers_"
-          render={({ location, match }) => location.search}
+          render={({ location, match }) => (
+            <GroceryView children={location.search} />
+          )}
         />
         <Route
           exact
