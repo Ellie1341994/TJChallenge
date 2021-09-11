@@ -6,54 +6,46 @@ import {
   Heading,
   Grid,
   GridItem,
-  FlexProps,
 } from "@chakra-ui/react";
 import { Link as ReactRouterLink } from "react-router-dom";
-import { AiFillInstagram } from "react-icons/ai";
-import { AiFillFacebook } from "react-icons/ai";
-import { CgTwitter } from "react-icons/cg";
+import { SocialNetworks } from "./misc/SocialNetworks";
+const NAVBAR_LINK_PROPS: LinkProps = {
+  padding: "1%",
+  textTransform: "capitalize",
+  textAlign: "center",
+};
+const AUTH_LINK_PROPS: LinkProps = {
+  bgColor: "#333",
+  color: "#eee",
+  rounded: "md",
+  padding: "5px",
+  width: "75px",
+  textTransform: "capitalize",
+  textAlign: "center",
+};
 
 const Logo = () => {
   return (
     <Flex direction="column">
-      <Heading textAlign="center" as="h1">
+      <Heading size="lg" textAlign="center" as="h1">
         The Beer of Tomorrow
       </Heading>
-      <SocialNetworks justify="space-evenly" align="center" />
+      <SocialNetworks p="2.5%" justify="space-evenly" align="center" />
     </Flex>
   );
 };
 
-const SocialNetworks = ({ ...props }: FlexProps) => {
-  return (
-    <Flex {...props}>
-      <Link href="https://www.facebook.com/" isExternal>
-        <AiFillFacebook color="#333" />
-      </Link>
-      <Link href="https://www.instagram.com/" isExternal>
-        <AiFillInstagram color="#333" />
-      </Link>
-      <Link href="https://twitter.com/" isExternal>
-        <CgTwitter color="#333" />
-      </Link>
-    </Flex>
-  );
-};
 const Auth = () => {
-  const commonLinkProps: LinkProps = {
-    bgColor: "#333",
-    color: "#eee",
-    rounded: "md",
-    padding: "5px",
-    width: "75px",
-    textTransform: "capitalize",
-    textAlign: "center",
-  };
   const auth = ["login", "register"];
   return (
     <Flex justify="space-evenly" w="100%">
-      {auth.map((type) => (
-        <Link {...commonLinkProps} as={ReactRouterLink} to={`/${type}`}>
+      {auth.map((type, index) => (
+        <Link
+          key={`authLink#${index}`}
+          {...AUTH_LINK_PROPS}
+          as={ReactRouterLink}
+          to={`/${type}`}
+        >
           {type}
         </Link>
       ))}
@@ -61,19 +53,16 @@ const Auth = () => {
   );
 };
 const NavBar = ({ auth = false }) => {
-  const commonLinkProps: LinkProps = {
-    padding: "1%",
-    textTransform: "capitalize",
-    textAlign: "center",
-  };
-  const sections = ["contact", "history", "grocery"];
+  const sections = ["contact", "grocery", "history"];
   return (
     <Flex direction="row" justify="space-evenly" p="1%">
-      <Link {...commonLinkProps} as={ReactRouterLink} to={`/`}>
-        us
-      </Link>
-      {sections.map((section) => (
-        <Link {...commonLinkProps} as={ReactRouterLink} to={`/${section}`}>
+      {sections.map((section, index) => (
+        <Link
+          key={`navlink#${index}`}
+          {...NAVBAR_LINK_PROPS}
+          as={ReactRouterLink}
+          to={`/${section}`}
+        >
           {section}
         </Link>
       ))}
