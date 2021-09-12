@@ -13,6 +13,7 @@ import {
   Grid,
   FlexProps,
   Box,
+  BoxProps,
   GridItem,
   Text,
   Link,
@@ -137,6 +138,39 @@ const ExtraInformationBoard = ({
     </Flex>
   );
 };
+const MainInformationBoard = ({
+  name,
+  tagline,
+  image_url,
+  description,
+  first_brewed,
+  ...BoxProps
+}: IBeer & BoxProps) => (
+  <Box
+    w={{ base: "100%", sm: "50%" }}
+    h={{ base: "auto", sm: "100%" }}
+    overflowY={useBreakpointValue({ base: "visible", sm: "auto" })}
+    {...BoxProps}
+  >
+    <Heading px="1%" textAlign="left">
+      {name}
+    </Heading>
+    <Text px="1%" fontSize="sm">
+      {tagline} First brewed in {first_brewed}
+    </Text>
+    <Image
+      p="5%"
+      alt="A Beer"
+      boxSize={{ base: "100vw", sm: "100%" }}
+      objectFit="contain"
+      src={image_url ?? undefined}
+      fallbackSrc={""}
+    />
+    <Text p="1%" fontSize="sm">
+      {description}
+    </Text>
+  </Box>
+);
 export const Beer = ({
   name,
   description,
@@ -152,32 +186,13 @@ export const Beer = ({
     <Flex
       direction={{ base: "column", sm: "row-reverse" }}
       p="5%"
-      height={{ base: "100vh" }}
+      h={{ base: "100vh" }}
       overflowY="auto"
-      flex="1"
     >
-      <Box w={{ base: "100%", sm: "50%" }}>
-        <Heading px="1%" textAlign="left">
-          {name}
-        </Heading>
-        <Text px="1%" fontSize="sm">
-          {tagline}
-        </Text>
-        <Image
-          p="5%"
-          alt="A Beer"
-          boxSize={{ base: "100vw", sm: "100%" }}
-          objectFit="contain"
-          src={image_url ?? undefined}
-          fallbackSrc={""}
-        />
-        <Text p="1%" fontSize="sm">
-          {description}
-        </Text>
-      </Box>
+      <MainInformationBoard
+        {...{ name, description, tagline, image_url, first_brewed }}
+      />
       <ExtraInformationBoard
-        position="sticky"
-        top="0"
         w={{ base: "100%", sm: "50%" }}
         {...{ brewers_tips, food_pairing, ingredients }}
         justify="center"
