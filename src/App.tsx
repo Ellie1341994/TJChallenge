@@ -40,7 +40,7 @@ export const App = () => {
         <Route
           exact
           path="/beers/:id"
-          render={({ match }) => <BeerView BeerId={match.params.id} />}
+          render={({ match }) => <BeerView beerId={match.params.id} />}
         />
         <Route render={() => "Not found page"} />
       </Switch>
