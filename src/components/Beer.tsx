@@ -10,11 +10,9 @@ import {
   useBreakpointValue,
   Flex,
   Heading,
-  Grid,
   FlexProps,
   Box,
   BoxProps,
-  GridItem,
   Text,
   Link,
   ListItem,
@@ -98,15 +96,14 @@ const ExtraInformationBoard = ({
   brewers_tips?: string | null;
   ingredients?: IIngredients;
 } & FlexProps) => {
-  const screenIsAtLeastSM = useBreakpointValue({
-    base: false,
-    sm: true,
-    md: true,
+  const baseScreen = useBreakpointValue({
+    base: true,
+    sm: false,
   });
   const [show, setShow] = React.useState(false);
   React.useEffect(() => {
-    setShow(screenIsAtLeastSM ?? false);
-  }, []);
+    setShow(baseScreen ? false : true);
+  }, [baseScreen]);
   return (
     <Flex
       p="2.5%"
@@ -115,7 +112,7 @@ const ExtraInformationBoard = ({
       direction="column"
       {...flexProps}
     >
-      {!screenIsAtLeastSM && (
+      {baseScreen && (
         <Link
           fontSize="xs"
           textAlign="left"
