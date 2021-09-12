@@ -10,5 +10,4 @@ export const GroceryView = ({ children }: any) => {
       <Test children={children} />
     </PageBase>
   );
-
 };

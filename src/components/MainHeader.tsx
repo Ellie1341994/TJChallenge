@@ -5,89 +5,115 @@ import {
   LinkProps,
   Heading,
   Grid,
+  Button,
   GridItem,
 } from "@chakra-ui/react";
 import { Link as ReactRouterLink } from "react-router-dom";
 import { SocialNetworks } from "./misc/SocialNetworks";
-const NAVBAR_LINK_PROPS: LinkProps = {
-  padding: "1%",
-  textTransform: "capitalize",
-  textAlign: "center",
-};
-const AUTH_LINK_PROPS: LinkProps = {
-  bgColor: "#333",
-  color: "#eee",
-  rounded: "md",
-  padding: "5px",
-  width: "75px",
-  textTransform: "capitalize",
-  textAlign: "center",
-};
+import { FaOpencart } from "react-icons/fa";
 
 const Logo = () => {
   return (
     <Flex direction="column">
-      <Heading size="lg" textAlign="center" as="h1">
+      <Heading textAlign="center" as="h1" p="2%">
         The Beer of Tomorrow
+        <SocialNetworks
+          as="sub"
+          display="inline"
+          p="1%"
+          justify="flex-start"
+          align="center"
+        />
       </Heading>
-      <SocialNetworks p="2.5%" justify="space-evenly" align="center" />
     </Flex>
   );
 };
 
-const Auth = () => {
+const AuthButtons = ({ isAuthenticated }: { isAuthenticated: boolean }) => {
+  const authLinkProsp: LinkProps = {
+    bgColor: "#333",
+    color: "white",
+    rounded: "md",
+    padding: "5px",
+    width: "75px",
+    textTransform: "capitalize",
+    textAlign: "center",
+  };
   const auth = ["login", "register"];
-  return (
-    <Flex justify="space-evenly" w="100%">
+  return isAuthenticated ? (
+    <Link
+      {...authLinkProsp}
+      as={ReactRouterLink}
+      alignSelf="center"
+      to={`/`}
+      onClick={() => localStorage.removeItem("fakeToken")}
+    >
+      {"Logout"}
+    </Link>
+  ) : (
+    <>
+      {" "}
       {auth.map((type, index) => (
         <Link
           key={`authLink#${index}`}
-          {...AUTH_LINK_PROPS}
+          {...authLinkProsp}
           as={ReactRouterLink}
+          alignSelf="center"
           to={`/${type}`}
         >
           {type}
         </Link>
       ))}
-    </Flex>
+    </>
   );
 };
-const NavBar = ({ auth = false }) => {
-  const sections = ["contact", "grocery", "history"];
+const NavBar = ({ isAuthenticated = false }) => {
+  const navBarLinkProps: LinkProps = {
+    padding: "1%",
+    textTransform: "capitalize",
+    textAlign: "center",
+    fontWeight: "bold",
+    alignSelf: "center",
+  };
+  const sections = ["contact", "store"];
+  if (isAuthenticated) {
+    sections.push("history");
+  }
   return (
-    <Flex direction="row" justify="space-evenly" p="1%">
+    <Flex as="nav" direction="row" justify="space-evenly" p="0%">
       {sections.map((section, index) => (
         <Link
           key={`navlink#${index}`}
-          {...NAVBAR_LINK_PROPS}
+          {...navBarLinkProps}
+          fontSize={{ base: "xs", sm: "sm" }}
           as={ReactRouterLink}
           to={`/${section}`}
         >
           {section}
         </Link>
       ))}
+      <AuthButtons isAuthenticated={isAuthenticated} />
+      {isAuthenticated && (
+        <Button
+          rightIcon={<FaOpencart color="white" size={24} />}
+          colorScheme="blackAlpha"
+          bgColor="#333"
+        >
+          Cart
+        </Button>
+      )}
     </Flex>
   );
 };
 
 export const MainHeader = () => {
   return (
-    <Grid templateRows="repeat(2, 1fr)" templateColumns="repeat(2, 50%)">
-      <GridItem rowSpan={1} colStart={1} colEnd={1}>
+    <Grid templateRows="repeat(2, 0fr)" templateColumns="repeat(2, 50%)">
+      <GridItem rowSpan={1} colSpan={2}>
         <Logo />
       </GridItem>
-      <GridItem
-        w="100%"
-        alignSelf="center"
-        justifySelf="center"
-        rowSpan={1}
-        colStart={2}
-        colEnd={2}
-      >
-        <Auth />
-      </GridItem>
       <GridItem rowSpan={1} rowStart={2} rowEnd={2} colSpan={2}>
-        <NavBar />
+        <NavBar isAuthenticated={Boolean(localStorage.getItem("fakeToken"))} />
       </GridItem>
     </Grid>
   );
