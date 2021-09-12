@@ -6,24 +6,24 @@ export interface Beer {
   id?: number | null;
   name: string | null;
   tagline?: string | null;
-  firstBrewed: string | null;
+  first_brewed: string | null;
   description: string | null;
-  imageURL: string | null;
+  image_url: string | null;
   abv?: number | null;
   ibu?: number | null;
-  targetFg?: number | null;
-  targetOg?: number | null;
+  target_fg?: number | null;
+  target_og?: number | null;
   ebc?: number | null;
   srm?: number | null;
   ph?: number | null;
-  attenuationLevel?: number | null;
+  attenuation_level?: number | null;
   volume?: BoilVolume | null;
-  boilVolume?: BoilVolume | null;
+  boil_volume?: BoilVolume | null;
   method?: Method | null;
   ingredients?: Ingredients | null;
-  foodPairing?: string[] | null;
-  brewersTips?: string | null;
-  contributedBy?: string | null;
+  food_pairing?: string[] | null;
+  brewers_tips?: string | null;
+  contributed_by?: string | null;
 }
 
 export interface BoilVolume {
@@ -50,7 +50,7 @@ export interface Malt {
 }
 
 export interface Method {
-  mashTemp: MashTemp[] | null;
+  mash_temp: MashTemp[] | null;
   fermentation: Fermentation | null;
   twist: null | null;
 }
