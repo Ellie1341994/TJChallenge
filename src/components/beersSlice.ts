@@ -31,6 +31,7 @@ export const beersSlice = createSlice({
         state.data = action.payload;
       })
       .addCase(getRandomBeer.rejected, (state) => {
+
         state.status = "failed";
       });
   },

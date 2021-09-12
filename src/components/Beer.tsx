@@ -171,6 +171,7 @@ const MainInformationBoard = ({
     </Text>
   </Box>
 );
+
 export const Beer = ({
   name,
   description,

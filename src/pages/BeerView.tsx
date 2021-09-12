@@ -20,5 +20,6 @@ export const BeerView: TBeerView = ({ beerId: id }) => {
     <PageBase>
       <Beer {...beerProps} />
     </PageBase>
+
   );
 };

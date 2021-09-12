@@ -51,6 +51,7 @@ export interface Malt {
 
 export interface Method {
   mash_temp: MashTemp[] | null;
+
   fermentation: Fermentation | null;
   twist: null | null;
 }
@@ -60,5 +61,6 @@ export interface Fermentation {
 }
 
 export interface MashTemp extends Fermentation {
+
   duration: number | null | null;
 }

@@ -1,11 +1,14 @@
 import axios, { AxiosInstance, AxiosResponse } from "axios";
+
 import { AsyncThunkOptions, AsyncThunkPayloadCreator } from "@reduxjs/toolkit";
+
 
 const headers = { "Content-Type": "application/json" };
 const axiosInstance: AxiosInstance = axios.create({
   baseURL: "https://api.punkapi.com/v2",
   headers,
 });
+
 
 interface punkApiParams {
   url?: string;
@@ -28,5 +31,6 @@ const filter: beersATPC = async (
   { filters, url = `/beers/${filters}` },
   thunkAPI
 ) => (await axiosInstance.get(url)).data;
+
 
 export const beersService = { random, get, filter };
