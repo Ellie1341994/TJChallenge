@@ -3,18 +3,17 @@ import { RootState, AppThunk } from "../app/store";
 import { beersService } from "../services/beers";
 import { Beer as IBeer } from "../types/beer";
 
-export const getBeers = createAsyncThunk("beers/get", async () => {
-  return (await beersService.random()).data;
-});
-interface BeersState {
-  data: undefined | IBeer[] | IBeer;
+export const getRandomBeer = createAsyncThunk("beers/get", beersService.random);
+export const getBeer = createAsyncThunk("beers/get", beersService.get);
+interface IBeersState {
+  data: IBeer[];
   status: undefined | "loading" | "success" | "failed";
-  history: number[] | string[] | undefined;
+  history: string[];
   message: string;
 }
-const initialState: BeersState = {
-  data: undefined,
-  history: undefined,
+const initialState: IBeersState = {
+  data: [],
+  history: [],
   status: undefined,
   message: "",
 };
@@ -24,13 +23,15 @@ export const beersSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(getBeers.pending, (state) => {
+      .addCase(getRandomBeer.pending, (state) => {
         state.status = "loading";
       })
-      .addCase(getBeers.fulfilled, (state) => {
+      .addCase(getRandomBeer.fulfilled, (state, action) => {
         state.status = "success";
+        state.data = action.payload;
       })
-      .addCase(getBeers.rejected, (state) => {
+      .addCase(getRandomBeer.rejected, (state) => {
+
         state.status = "failed";
       });
   },

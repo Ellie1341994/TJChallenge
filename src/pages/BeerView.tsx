@@ -1,15 +1,25 @@
 import * as React from "react";
 import { Beer } from "../components/Beer";
-import { Beer as IBeer } from "../types/beer";
+import { PageBase } from "./Base";
+import { getBeer } from "../components/beersSlice";
+import { useAppDispatch, useAppSelector } from "../app/hooks";
 
-type TBeerView = ({ BeerId }: { BeerId: string }) => JSX.Element;
-export const BeerView: TBeerView = ({ BeerId }) => {
+type TBeerView = ({ beerId }: { beerId: string }) => JSX.Element;
+export const BeerView: TBeerView = ({ beerId: id }) => {
+  const dispatch = useAppDispatch();
+  const {
+    data: [beerProps],
+    status,
+    message,
+  } = useAppSelector(({ beers }) => beers);
+  React.useEffect(() => {
+    dispatch(getBeer({ id }));
+  }, []);
+
   return (
-    <Beer
-      name="TestBeer"
-      imageURL=""
-      description="testDescription"
-      firstBrewed="1994"
-    />
+    <PageBase>
+      <Beer {...beerProps} />
+    </PageBase>
+
   );
 };

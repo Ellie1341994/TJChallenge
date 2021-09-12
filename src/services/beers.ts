@@ -1,8 +1,7 @@
 import axios, { AxiosInstance, AxiosResponse } from "axios";
 
-type BeerRequestOne = (id: string | number) => Promise<AxiosResponse>;
-type BeerRequestAny = () => Promise<AxiosResponse>;
-type BeerRequestFiltered = (filters: string) => Promise<AxiosResponse>;
+import { AsyncThunkOptions, AsyncThunkPayloadCreator } from "@reduxjs/toolkit";
+
 
 const headers = { "Content-Type": "application/json" };
 const axiosInstance: AxiosInstance = axios.create({
@@ -10,12 +9,28 @@ const axiosInstance: AxiosInstance = axios.create({
   headers,
 });
 
+
+interface punkApiParams {
+  url?: string;
+  id?: string | number;
+  filters?: string;
+}
+type beersATPC = AsyncThunkPayloadCreator<Array<any>, punkApiParams, {}>;
+
 const BEERS_ENDPOINT = process.env.REACT_APP_BEERS_ENDPOINT;
-const get: BeerRequestOne = (id) =>
-  axiosInstance.get(`${BEERS_ENDPOINT}/${id}`);
-const random: BeerRequestAny = () =>
-  axiosInstance.get(`${BEERS_ENDPOINT}/random`);
-const filter: BeerRequestFiltered = (filters) =>
-  axiosInstance.get(`/beers/${filters}`);
+
+const get: beersATPC = async (
+  { id, url = `${BEERS_ENDPOINT}/${id}` },
+  thunkAPI
+) => (await axiosInstance.get(url)).data;
+const random: beersATPC = async (
+  { url = `${BEERS_ENDPOINT}/random` },
+  thunkAPI
+) => (await axiosInstance.get(url)).data;
+const filter: beersATPC = async (
+  { filters, url = `/beers/${filters}` },
+  thunkAPI
+) => (await axiosInstance.get(url)).data;
+
 
 export const beersService = { random, get, filter };
