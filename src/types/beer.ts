@@ -17,16 +17,16 @@ export interface Beer {
   srm?: number | null;
   ph?: number | null;
   attenuation_level?: number | null;
-  volume?: BoilVolume | null;
-  boil_volume?: BoilVolume | null;
+  volume?: Measure | null;
+  boil_volume?: Measure | null;
   method?: Method | null;
-  ingredients?: Ingredients | null;
+  ingredients?: Ingredients;
   food_pairing?: string[] | null;
   brewers_tips?: string | null;
   contributed_by?: string | null;
 }
 
-export interface BoilVolume {
+export interface Measure {
   value: number | null;
   unit: string | null;
 }
@@ -39,14 +39,14 @@ export interface Ingredients {
 
 export interface Hop {
   name: string | null;
-  amount: BoilVolume | null;
-  add: string | null;
-  attribute: string | null;
+  amount: Measure | null;
+  add?: string | null;
+  attribute?: string | null;
 }
 
 export interface Malt {
   name: string | null;
-  amount: BoilVolume | null;
+  amount: Measure | null;
 }
 
 export interface Method {
@@ -56,10 +56,9 @@ export interface Method {
 }
 
 export interface Fermentation {
-  temp: BoilVolume | null;
+  temp: Measure | null;
 }
 
-export interface MashTemp {
-  temp: BoilVolume | null;
+export interface MashTemp extends Fermentation {
   duration: number | null | null;
 }
