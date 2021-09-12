@@ -15,7 +15,7 @@ const initialState: IBeersState = {
   data: [],
   history: [],
   status: undefined,
-  message: "",
+  message: "Preloaded data",
 };
 export const beersSlice = createSlice({
   name: "beersStorage",
@@ -25,13 +25,16 @@ export const beersSlice = createSlice({
     builder
       .addCase(getRandomBeer.pending, (state) => {
         state.status = "loading";
+        state.message = "Loading data";
       })
       .addCase(getRandomBeer.fulfilled, (state, action) => {
         state.status = "success";
         state.data = action.payload;
+        state.message = "Data loaded";
       })
       .addCase(getRandomBeer.rejected, (state) => {
         state.status = "failed";
+        state.message = "Loading data failed";
       });
   },
 });
