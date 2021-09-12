@@ -6,40 +6,58 @@ import {
   Redirect,
 } from "react-router-dom";
 import "./App.css";
-import { beersService } from "./services/beers";
-import { Beer as IBeer } from "./types/beer";
 import { BeerView } from "./pages/BeerView";
+import { AuthView } from "./pages/AuthView";
 import { GroceryView } from "./pages/GroceryView";
 export const App = () => {
-  const [test, setTest] = React.useState<IBeer[] | []>([]);
+  const isAuthenticated = localStorage.getItem("fakeToken");
   React.useEffect(() => {
-    //beersService.random().then((response) => setTest(response.data));
+    //return localStorage.removeItem("fakeToken");
   }, []);
 
   return (
     <Router>
       <Switch>
         <Route
-          path="/beers_"
-          render={({ location, match }) => (
-            <GroceryView children={location.search} />
-          )}
+          path="/beers"
+          render={({ location }) => <GroceryView children={location.search} />}
         />
         <Route
           exact
           path="/"
-          render={() => <Redirect to="beers_?page=1&per_page=12" />}
+          render={() => <Redirect to="beers?page=1&per_page=12" />}
         />
-        <Route exact path="/cart" render={() => "Cart page"} />
+        <Route
+          exact
+          path="/cart"
+          render={({ location }) =>
+            isAuthenticated ? (
+              "Cart page"
+            ) : (
+              <Redirect to={`/login?from=${location.pathname}`} />
+            )
+          }
+        />
         <Route
           exact
           path={["/login", "/register"]}
-          render={() => "A Login or Register form"}
+          render={({ location }) =>
+            isAuthenticated ? (
+              <Redirect to="/" />
+            ) : (
+              <AuthView
+                type={location.pathname}
+                to={
+                  new URLSearchParams(location.search).get("from") ?? "/store"
+                }
+              />
+            )
+          }
         />
         <Route exact path="/contact" render={() => "Contact page"} />
         <Route
           exact
-          path="/beers/:id"
+          path="/beer/:id"
           render={({ match }) => <BeerView beerId={match.params.id} />}
         />
         <Route render={() => "Not found page"} />

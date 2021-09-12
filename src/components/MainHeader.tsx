@@ -29,7 +29,7 @@ const Logo = () => {
   );
 };
 
-const AuthButtons = () => {
+const AuthButtons = ({ isAuthenticated }: { isAuthenticated: boolean }) => {
   const authLinkProsp: LinkProps = {
     bgColor: "#333",
     color: "white",
@@ -40,7 +40,17 @@ const AuthButtons = () => {
     textAlign: "center",
   };
   const auth = ["login", "register"];
-  return (
+  return isAuthenticated ? (
+    <Link
+      {...authLinkProsp}
+      as={ReactRouterLink}
+      alignSelf="center"
+      to={`/`}
+      onClick={() => localStorage.removeItem("fakeToken")}
+    >
+      {"Logout"}
+    </Link>
+  ) : (
     <>
       {" "}
       {auth.map((type, index) => (
@@ -57,7 +67,7 @@ const AuthButtons = () => {
     </>
   );
 };
-const NavBar = ({ auth = false }) => {
+const NavBar = ({ isAuthenticated = false }) => {
   const navBarLinkProps: LinkProps = {
     padding: "1%",
     textTransform: "capitalize",
@@ -66,7 +76,7 @@ const NavBar = ({ auth = false }) => {
     alignSelf: "center",
   };
   const sections = ["contact", "store"];
-  if (auth) {
+  if (isAuthenticated) {
     sections.push("history");
   }
   return (
@@ -82,7 +92,8 @@ const NavBar = ({ auth = false }) => {
           {section}
         </Link>
       ))}
-      {auth && (
+      <AuthButtons isAuthenticated={isAuthenticated} />
+      {isAuthenticated && (
         <Button
           rightIcon={<FaOpencart color="white" size={24} />}
           colorScheme="blackAlpha"
@@ -91,7 +102,6 @@ const NavBar = ({ auth = false }) => {
           Cart
         </Button>
       )}
-      <AuthButtons />
     </Flex>
   );
 };
@@ -103,7 +113,7 @@ export const MainHeader = () => {
         <Logo />
       </GridItem>
       <GridItem rowSpan={1} rowStart={2} rowEnd={2} colSpan={2}>
-        <NavBar />
+        <NavBar isAuthenticated={Boolean(localStorage.getItem("fakeToken"))} />
       </GridItem>
     </Grid>
   );
