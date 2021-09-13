@@ -1,5 +1,5 @@
-import axios, { AxiosInstance, AxiosResponse } from "axios";
-import { AsyncThunkOptions, AsyncThunkPayloadCreator } from "@reduxjs/toolkit";
+import axios, { AxiosInstance } from "axios";
+import { AsyncThunkPayloadCreator } from "@reduxjs/toolkit";
 
 const headers = { "Content-Type": "application/json" };
 const axiosInstance: AxiosInstance = axios.create({
