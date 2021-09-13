@@ -5,14 +5,12 @@ import {
   LinkProps,
   Heading,
   Grid,
-  Button,
   GridItem,
 } from "@chakra-ui/react";
 import { Link as ReactRouterLink } from "react-router-dom";
 import { SocialNetworks } from "./misc/SocialNetworks";
 import { IoIosCart } from "react-icons/io";
 import { GiBeerBottle } from "react-icons/gi";
-import { HiOutlineViewList } from "react-icons/hi";
 
 const Logo = () => {
   return (
@@ -40,6 +38,7 @@ const AuthLinks = ({ isAuthenticated }: { isAuthenticated: boolean }) => {
     width: "75px",
     textTransform: "capitalize",
     textAlign: "center",
+    fontSize: { base: "xs", sm: "md" },
   };
   const auth = ["login", "register"];
   return isAuthenticated ? (
@@ -80,7 +79,7 @@ const NavBar = ({ isAuthenticated = false }) => {
   };
   const sections = [
     ["contact", undefined],
-    ["store", GiBeerBottle],
+    ["beers", GiBeerBottle],
   ];
   if (isAuthenticated) {
     sections.push(["Products seen", undefined]);
@@ -105,12 +104,14 @@ const NavBar = ({ isAuthenticated = false }) => {
       {isAuthenticated && (
         <Link
           rounded="md"
+          fontSize={{ base: "xs", sm: "md" }}
           p="1%"
           display="flex"
           color="#333"
-          bgColor="gray.100"
+          bgColor="yellow.600"
+          alignItems="center"
         >
-          <IoIosCart color="inherit" size={24} />
+          <IoIosCart color="inherit" size={18} />
           Cart
         </Link>
       )}
