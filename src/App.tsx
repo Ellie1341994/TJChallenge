@@ -23,7 +23,7 @@ export const App = () => {
           path={["/", "/beers"]}
           render={({ location }) =>
             /beers$/.test(location.pathname) && location.search ? (
-              <StoreView children={location.search} />
+              <StoreView filters={location.search} />
             ) : (
               <Redirect to="beers?page=1&per_page=12" />
             )
