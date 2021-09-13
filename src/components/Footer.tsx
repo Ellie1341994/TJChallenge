@@ -3,23 +3,14 @@ import {
   Input,
   Text,
   Button,
-  Flex,
-  Link,
-  LinkProps,
   Heading,
   Grid,
   GridItem,
-  GridProps,
-  FlexProps,
   List,
   ListItem,
-  ListIcon,
-  OrderedList,
-  UnorderedList,
 } from "@chakra-ui/react";
 import { SocialNetworks } from "./misc/SocialNetworks";
 import { useBreakpointValue } from "@chakra-ui/react";
-const FOOTER_GRID_PROPS: GridProps = { bgColor: "#333", color: "#eee" };
 type TFooterList = ({ data }: { data: string[] | [] }) => JSX.Element;
 const FooterList: TFooterList = ({ data = [] }) => {
   return (
@@ -31,6 +22,7 @@ const FooterList: TFooterList = ({ data = [] }) => {
   );
 };
 export const Footer = () => {
+  // mockeup  data
   const emails = [
     "eveniet@libero.com",
     "odit@provident.com ",
@@ -45,8 +37,9 @@ export const Footer = () => {
     "Sit amet.",
   ];
   const baseSizeScreen = useBreakpointValue({ base: true, sm: false });
+  const [buttonMessage, setButtonMessage] = React.useState("Subscribe");
   return (
-    <Grid templateColumns="repeat(4,auto)" p="2%" gap={2}>
+    <Grid bgColor="gray.100" templateColumns="repeat(4,auto)" p="2%" gap={2}>
       <GridItem>
         <Heading size="sm" fontWeight="bold">
           Social media
@@ -75,18 +68,37 @@ export const Footer = () => {
           Lorem ipsum dolor sit amet, consectetur adipisicing elit.
         </Text>
         <form
-          onSubmit={(event: React.FormEvent<HTMLFormElement>) =>
-            event.preventDefault()
-          }
+          onSubmit={(event: React.FormEvent<HTMLFormElement>) => {
+            event.preventDefault();
+            let form: HTMLFormElement = event.currentTarget;
+            let email: HTMLInputElement = form.email;
+            !email.value
+              ? setButtonMessage("Enter your email!")
+              : setButtonMessage("Subscribed!");
+            setTimeout(() => {
+              setButtonMessage("Subscribe");
+            }, 1000);
+          }}
         >
           <Input
+            my="3%"
+            borderBottom="1px solid #333"
             variant="flushed"
+            name="email"
+            type="email"
             size="xs"
             _placeholder={{ fontsize: "6px" }}
             placeholder="Type your e-mail"
+            required
           />
-          <Button size="xs" isFullWidth>
-            Submit
+          <Button
+            type="submit"
+            size="xs"
+            colorScheme="blackAlpha"
+            bgColor="#333"
+            isFullWidth
+          >
+            {buttonMessage}
           </Button>
         </form>
       </GridItem>
