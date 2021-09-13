@@ -31,7 +31,7 @@ export const SocialNetworks: TSocialNetwork = ({
           href={`https:www.${name}.com`}
         >
           {displayIcons && (
-            <NetworkIcon color="#333" style={{ display: "inline" }} />
+            <NetworkIcon color="inherit" style={{ display: "inline" }} />
           )}
           {displayNames && name}
         </Link>
