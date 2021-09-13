@@ -25,7 +25,7 @@ const random: beersATPC = async (
   thunkAPI
 ) => (await axiosInstance.get(url)).data;
 const filter: beersATPC = async (
-  { filters, url = `/beers/${filters}` },
+  { filters, url = `/beers${filters}` },
   thunkAPI
 ) => (await axiosInstance.get(url)).data;
 
