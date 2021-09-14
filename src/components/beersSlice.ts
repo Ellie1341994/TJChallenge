@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { beersService } from "../services/beers";
 import { Beer as IBeer } from "../types/beer";
+import { PunkApiErrorResponse } from "../types/PunkAPI";
 
 export const getRandomBeer = createAsyncThunk(
   "beers/random",
@@ -39,9 +40,11 @@ export const beersSlice = createSlice({
           state.data = action.payload;
           state.message = "Data loaded";
         })
-        .addCase(beerRequest.rejected, (state) => {
+        .addCase(beerRequest.rejected, (state, action) => {
           state.status = "failed";
-          state.message = "Loading data failed";
+          state.message =
+            (action.payload as PunkApiErrorResponse).message ??
+            "Loading data failed";
         });
     }
   },

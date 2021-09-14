@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Field, Formik, Form, ErrorMessage } from "formik";
+import { Field, Formik, Form } from "formik";
 import { useHistory } from "react-router-dom";
 import * as Yup from "yup";
 import {
@@ -19,7 +19,7 @@ const yupSchema = Yup.object({
 });
 export const AuthForm = ({
   login,
-  to = "/cart",
+  to = "/",
 }: {
   login: boolean;
   to?: string;
@@ -33,7 +33,7 @@ export const AuthForm = ({
       }}
       validationSchema={yupSchema}
       onSubmit={(values, { setSubmitting }) => {
-        localStorage.setItem("fakeToken", values.email);
+        login && localStorage.setItem("fakeToken", values.email);
         setTimeout(() => {
           history.push(to);
           setSubmitting(false);
