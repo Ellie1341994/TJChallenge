@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Beer } from "../components/Beer";
 import { PageBase } from "./Base";
-import { getBeer } from "../components/beersSlice";
+import { getBeer, seeBeer } from "../components/beersSlice";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
 import { Flex, Spinner } from "@chakra-ui/react";
 import { ErrorBoard } from "../components/ErrorBoard";
@@ -16,6 +16,7 @@ export const BeerView: TBeerView = ({ beerId: id }) => {
   } = useAppSelector(({ beers }) => beers);
   React.useEffect(() => {
     dispatch(getBeer({ id }));
+    dispatch(seeBeer(id));
   }, []);
 
   return (

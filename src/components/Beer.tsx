@@ -191,8 +191,8 @@ export const Beer = ({
       />
       <ExtraInformationBoard
         w={{ base: "100%", sm: "50%" }}
+        overflowY={{ base: "unset", sm: "auto" }}
         {...{ brewers_tips, food_pairing, ingredients }}
-        justify="center"
       />
     </Flex>
   );
