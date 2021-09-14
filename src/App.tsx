@@ -32,10 +32,10 @@ export const App = () => {
         />
         <Route
           exact
-          path="/cart/:id?"
+          path="/cart"
           render={({ location, match }) =>
             localStorage.getItem("fakeToken") ? (
-              <CartView id={match.params.id} />
+              <CartView />
             ) : (
               <Redirect to={`/login?from=${location.pathname}`} />
             )

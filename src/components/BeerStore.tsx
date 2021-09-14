@@ -1,11 +1,22 @@
 import * as React from "react";
-import { Flex, Image, Grid, GridItem, Heading, Link } from "@chakra-ui/react";
+import {
+  Button,
+  Flex,
+  Image,
+  Grid,
+  GridItem,
+  Heading,
+  Link,
+} from "@chakra-ui/react";
 import { Link as ReactRouterLink } from "react-router-dom";
-import { getBeersFilteredBy } from "../components/beersSlice";
+import { getBeersFilteredBy, buyBeer } from "../components/beersSlice";
 import { useAppDispatch } from "../app/hooks";
 import { useHistory } from "react-router-dom";
 
-const BeerItem = ({ datum }: any) => {
+const BeerItem = ({ cart = [], datum }: any) => {
+  const dispatch = useAppDispatch();
+  const onCart = cart.includes(`${datum.id}`);
+  const history = useHistory();
   return (
     <GridItem
       as={Flex}
@@ -20,32 +31,42 @@ const BeerItem = ({ datum }: any) => {
       <Link
         textAlign="center"
         w="100%"
-        overflowX="auto"
         isExternal
         as={ReactRouterLink}
         to={`/beer/${datum.id}`}
       >
-        <Heading w="100%" overflowX="auto" whiteSpace="nowrap" fontSize="xs">
+        <Heading
+          overflowX="auto"
+          overflowY="hidden"
+          whiteSpace="nowrap"
+          fontSize="xs"
+        >
           {datum.name}
         </Heading>
       </Link>
       <Image boxSize="50px" objectFit="contain" src={datum.image_url} />
-      <Link
+      <Button
         size="xs"
         fontWeight="bold"
         fontSize="xs"
         color="yellow.600"
         variant="unstyled"
         type="button"
-        as={ReactRouterLink}
-        to={`/cart/${datum.id}`}
+        disabled={onCart}
+        onClick={() => {
+          if (localStorage.getItem("fakeToken") === null) {
+            history.push("/login");
+          } else {
+            dispatch(buyBeer(`${datum.id}`));
+          }
+        }}
       >
-        Buy
-      </Link>
+        {onCart ? "On cart" : "Buy"}
+      </Button>
     </GridItem>
   );
 };
-export const BeerStore = ({ filters, data }: any) => {
+export const BeerStore = ({ cart, filters, data }: any) => {
   const dispatch = useAppDispatch();
   const history = useHistory();
   const paramsController = new URLSearchParams(filters);
@@ -62,7 +83,7 @@ export const BeerStore = ({ filters, data }: any) => {
         mb="2.5%"
       >
         {data.map((datum: any) => (
-          <BeerItem key={datum.name} datum={datum} />
+          <BeerItem cart={cart} key={datum.name} datum={datum} />
         ))}
         <GridItem as={Flex} w="100%" justifyContent="space-between" colSpan={3}>
           <Heading

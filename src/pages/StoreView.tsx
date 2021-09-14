@@ -9,7 +9,7 @@ import { BeerStore } from "../components/BeerStore";
 
 export const StoreView = ({ filters }: { filters: string }) => {
   const dispatch = useAppDispatch();
-  const { data, status, message } = useAppSelector(({ beers }) => beers);
+  const { data, status, message, cart } = useAppSelector(({ beers }) => beers);
   React.useEffect(() => {
     dispatch(getBeersFilteredBy({ filters }));
   }, []);
@@ -39,7 +39,7 @@ export const StoreView = ({ filters }: { filters: string }) => {
           w="100%"
         >
           <StoreFilters initialFilters={filters} />
-          <BeerStore filters={filters} data={data} />
+          <BeerStore filters={filters} cart={cart} data={data} />
         </Flex>
       )}
     </PageBase>
