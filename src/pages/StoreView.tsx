@@ -39,7 +39,7 @@ export const StoreView = ({ filters }: { filters: string }) => {
           w="100%"
         >
           <StoreFilters initialFilters={filters} />
-          <BeerStore data={data} />
+          <BeerStore filters={filters} data={data} />
         </Flex>
       )}
     </PageBase>
