@@ -55,7 +55,6 @@ export const App = () => {
             )
           }
         />
-        <Route exact path="/contact" render={() => "Contact page"} />
         <Route
           exact
           path="/beer/:id"
