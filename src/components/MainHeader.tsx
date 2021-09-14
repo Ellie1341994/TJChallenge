@@ -82,7 +82,7 @@ const NavBar = ({ isAuthenticated = false }) => {
     ["beers", GiBeerBottle],
   ];
   if (isAuthenticated) {
-    sections.push(["Products seen", undefined]);
+    sections.push(["history", undefined]);
   }
   return (
     <Flex as="nav" direction="row" justify="space-evenly" p="0%">
