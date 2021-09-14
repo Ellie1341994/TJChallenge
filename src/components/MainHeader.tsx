@@ -77,10 +77,7 @@ const NavBar = ({ isAuthenticated = false }) => {
     alignSelf: "center",
     color: "gray.50",
   };
-  const sections = [
-    ["contact", undefined],
-    ["beers", GiBeerBottle],
-  ];
+  const sections = [["beers", GiBeerBottle]];
   if (isAuthenticated) {
     sections.push(["history", undefined]);
   }
