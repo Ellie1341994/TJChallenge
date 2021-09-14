@@ -107,9 +107,12 @@ const NavBar = ({ isAuthenticated = false }) => {
           fontSize={{ base: "xs", sm: "md" }}
           p="1%"
           display="flex"
-          color="#333"
+          color="#eee"
+          fontWeight="bold"
           bgColor="yellow.600"
           alignItems="center"
+          as={ReactRouterLink}
+          to="/cart"
         >
           <IoIosCart color="inherit" size={18} />
           Cart
