@@ -5,6 +5,7 @@ import {
   LinkProps,
   Heading,
   Grid,
+  Button,
   GridItem,
 } from "@chakra-ui/react";
 import { Link as ReactRouterLink } from "react-router-dom";
@@ -77,7 +78,7 @@ const NavBar = ({ isAuthenticated = false }) => {
     alignSelf: "center",
     color: "gray.50",
   };
-  const sections = [["beers", GiBeerBottle]];
+  const sections = [["contact", undefined],["beers", GiBeerBottle]];
   if (isAuthenticated) {
     sections.push(["history", undefined]);
   }
