@@ -10,6 +10,7 @@ import { BeerView } from "./pages/BeerView";
 import { AuthView } from "./pages/AuthView";
 import { StoreView } from "./pages/StoreView";
 import { NotFoundView } from "./pages/NotFoundView";
+import { CartView } from "./pages/CartView";
 export const App = () => {
   React.useEffect(() => {
     //return localStorage.removeItem("fakeToken");
@@ -31,10 +32,10 @@ export const App = () => {
         />
         <Route
           exact
-          path="/cart"
-          render={({ location }) =>
+          path="/cart/:id?"
+          render={({ location, match }) =>
             localStorage.getItem("fakeToken") ? (
-              "Cart page"
+              <CartView id={match.params.id} />
             ) : (
               <Redirect to={`/login?from=${location.pathname}`} />
             )
