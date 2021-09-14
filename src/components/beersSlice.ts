@@ -16,11 +16,13 @@ interface IBeersState {
   data: IBeer[];
   status: undefined | "loading" | "success" | "failed";
   history: string[];
+  bought: string[];
   message: string;
 }
 const initialState: IBeersState = {
   data: [],
   history: [],
+  bought: [],
   status: undefined,
   message: "Preloaded data",
 };

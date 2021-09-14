@@ -64,33 +64,42 @@ export const BeerStore = ({ filters, data }: any) => {
         {data.map((datum: any) => (
           <BeerItem key={datum.name} datum={datum} />
         ))}
-        <Heading
-          textAlign="center"
-          w="100%"
-          onClick={() => {
-            paramsController.set("page", String(page - 1));
-            filters = "?" + paramsController.toString();
-            dispatch(getBeersFilteredBy({ filters })).then(() =>
-              history.push(`/beers${filters}`)
-            );
-          }}
-        >
-          Previous Beers
-        </Heading>
-        <Heading
-          gridColumnStart={3}
-          textAlign="center"
-          w="100%"
-          onClick={() => {
-            paramsController.set("page", String(page + 1));
-            filters = "?" + paramsController.toString();
-            dispatch(getBeersFilteredBy({ filters })).then(() =>
-              history.push(`/beers${filters}`)
-            );
-          }}
-        >
-          Next Beers
-        </Heading>
+        <GridItem as={Flex} w="100%" justifyContent="space-between" colSpan={3}>
+          <Heading
+            textAlign="center"
+            alignSelf="center"
+            size="md"
+            w="100%"
+            whiteSpace="pre"
+            onClick={() => {
+              paramsController.set("page", String(page - 1));
+              filters = "?" + paramsController.toString();
+              dispatch(getBeersFilteredBy({ filters })).then(() =>
+                history.push(`/beers${filters}`)
+              );
+            }}
+          >
+            Previous Beers
+          </Heading>
+          <Heading
+            gridColumnEnd={2}
+            whiteSpace="pre"
+            alignSelf="center"
+            justifySelf="end"
+            textAlign="center"
+            size="md"
+            w="100%"
+            onClick={() => {
+              paramsController.set("page", String(page + 1));
+              filters = "?" + paramsController.toString();
+              dispatch(getBeersFilteredBy({ filters })).then(() =>
+                history.push(`/beers${filters}`)
+              );
+            }}
+          >
+            Next Beers
+          </Heading>
+        </GridItem>
       </Grid>
     </>
   ) : (

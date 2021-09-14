@@ -118,6 +118,7 @@ export const StoreFilters = ({ initialFilters }: any) => {
         ),
       })}
       onSubmit={(values) => {
+        paramsController.set("page", "1"); // always search first page
         Object.entries(values).forEach(([key, value]) => {
           value
             ? paramsController.set(key, value as string)
@@ -161,7 +162,7 @@ export const StoreFilters = ({ initialFilters }: any) => {
           bgColor="#333"
           color="gray.50"
           form="filtersForm"
-          w="90%"
+          w="100%"
           my="5%"
           type="submit"
           size="xs"

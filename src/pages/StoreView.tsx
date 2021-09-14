@@ -32,7 +32,7 @@ export const StoreView = ({ filters }: { filters: string }) => {
       )}
       {status === "success" && (
         <Flex
-          justify="center"
+          justify={{ base: "space-evenly", sm: "space-between" }}
           align="center"
           direction="column"
           minH="100vh"
